@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.css';
-import history from './pages/history';
+import './style/index.css';
+import history from './pages/history.js';
 import { Router, Switch, Route } from 'react-router-dom';
-//import * as serviceWorker from './serviceWorker';
-
+import Main from './pages/main';
 ReactDOM.render(
       <Router history={history}>
       <Switch>
