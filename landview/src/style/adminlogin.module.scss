@@ -1,0 +1,43 @@
+@import './global.scss';
+.admsub{
+    font-size: 30px;
+    background:$primary;
+    color: #fff;
+    border: none;
+    border-radius: 20px 20px;
+    height: 45px;
+    min-width: 120px;
+    max-width: 150px;
+    width: 40% ! important;
+    margin: 0 auto;
+    margin-top: 5%;
+    display: table;
+}
+.form{
+    margin: auto;
+    padding: 5%;
+    min-width: 150px;
+}
+.admininp{
+    margin: 0 auto;
+    margin-top: 5%;
+    display: table;
+}
+.invalidtxt{
+    margin-left: 30% ! important;
+}
+.flex{
+    width: 360px;
+    align-self: center;
+    display:flex;
+    flex-wrap:wrap;
+    text-align:center;
+    margin:0px auto;
+}
+.header{
+    text-align: center;
+    font-size: 40px;
+    color: whitesmoke;
+    background-color:$primary;
+    margin: 0.1% !important;
+}

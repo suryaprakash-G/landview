@@ -29,6 +29,7 @@ class Main extends React.Component{
     changepage(e){
         this.setState({page:e});
     }
+    
     render(){
         return(
         <div className={cx(styles['main'],bs['container-fluid'],styles.parallax)}>

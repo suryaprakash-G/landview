@@ -4,11 +4,11 @@ import scontact from '../style/about.module.scss';
 class Contact extends React.Component {
     render() {
       return <div className={scontact.about}>
-        <h2>phno :</h2>
-         +91 9487757919<br/>
+        <h2 className={scontact.head}>phno :</h2>
+         <div className={scontact.cont}>+91 9487757919</div><br/>
          <br/>
-        <h2>address :</h2> 
-        123, 2nd street,<br/>main road near river,<br/>wakanda -1998.
+        <h2 className={scontact.head}>address :</h2> 
+        <div className={scontact.cont}>123, 2nd street,<br/>main road near river,<br/>wakanda -1998.</div>
       </div>;
     }
   }

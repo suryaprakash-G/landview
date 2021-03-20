@@ -1,14 +1,25 @@
 <?php
 //login script
-    require '../config/connect.php';
+    require 'connect.php';
     require 'global.php';
-    // username and password
-    $usr = $_POST['usr'];
-    $pass = $_POST['pass']; 
+    $postdata= file_get_contents('php://input');
     // array variable to hold the process result
     $processResult = array();
-    if(isset($usr) && !empty($usr) && isset($pass) && !empty($pass)){
-         auth($usr,$pass,$processResult);
+    if(isset($postdata) && !empty($postdata)){
+         //decoding json body
+         $data = json_decode($postdata);
+         if(isset($data->pass)){
+            $sentpass=$data->pass;
+            if($sentpass == $pass){
+                array_push($processResult, array(
+                "result" => "success"
+            ));}
+            else {
+                array_push($processResult, array(
+                    "result" => "Invalid password",
+                ));
+            }
+    }
     }else {
 
             // pushing insufficient information error into result array
