@@ -16,13 +16,13 @@ class AdminLogin extends React.Component{
         };
         axiosRetry(axios, { retries: 2 });
         this.stoplg=this.stoplg.bind(this);
-        this.loginchk=this.loginchk.bind(this);
         this.login=this.login.bind(this);
         this.c_pass=this.c_pass.bind(this);
       }
 
     //check if logged in
     loginchk(e){ 
+        console.log("check");
         if(this.state.show==='false')
         {
             const loggedin = localStorage.getItem("admin");
@@ -40,23 +40,21 @@ class AdminLogin extends React.Component{
         var valid=true;
         if(this.state.pass===""){valid=false;
             this.setState({invalid:"please enter password"})}
-        if(this.state.uname===""){valid=false;
-            this.setState({invalid:"user name empty"})}
         if(valid===true){
         this.setState({lg_loading:true});
         const admin = {
-            uname: this.state.uname,
             pass: this.state.pass
           };
-        axios.post(`https://bqhdj6kx2j.execute-api.ap-south-1.amazonaws.com/test/admin/login`,admin)
+        axios.post(`127.0.0.1/landview/login.php`,admin)
         .then(res => {
             this.setState({lg_loading:false});
-          if(res.data==="loged in"){
+            console.log("--------"+res.data);
+          if(res.data==="success"){
             localStorage.setItem('admin',JSON.stringify(admin));
-            this.props.history.push('/admin/main');
+            this.props.history.push('/');
           }
           else{
-              this.setState({invalid:"invalid credentials"});
+              this.setState({invalid:"invalid password"});
           }
         }).catch(error => {
             this.stoplg();
@@ -65,7 +63,8 @@ class AdminLogin extends React.Component{
         e.preventDefault();
     }
     c_pass(e){this.setState({ pass: e.currentTarget.value});
-        this.setState({invalid:""})}
+        this.setState({invalid:""});
+        e.preventDefault();}
     render(){
         return(
         <div>
@@ -77,7 +76,7 @@ class AdminLogin extends React.Component{
         
             {this.state.lg_loading?<button className={cx(styles.submit,styles.admsub)} onClick={this.login} disabled>
                                     <span className={bs['spinner-border']}></span></button>
-                                :<button className={cx(styles.submit,styles.admsub)} onClick={this.login}>Login</button>
+                                :<button className={cx(styles.submit,styles.admsub)} >Login</button>
             }
         </div>
         </form>
