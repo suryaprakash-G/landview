@@ -82,6 +82,15 @@
     margin-right: 16px;
     font-size: 17px;
   }
+  .newbtn{
+    float: right;
+    margin: 2%;
+    color: white;
+    border-radius: 30px;
+    background-color: $primary;
+    height: 40px;
+    width: 140px;
+  }
 @media only screen and (max-width: 690px) {
 .topnav a, .topnav input[type=text] {
     float: none;

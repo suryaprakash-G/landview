@@ -3,6 +3,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import bs from '../style/bootstrap.min.module.css';
 import cx from 'classnames';
+import './history.js';
 import styles from '../style/adminlogin.module.scss';
 
 class AdminLogin extends React.Component{
@@ -19,22 +20,6 @@ class AdminLogin extends React.Component{
         this.login=this.login.bind(this);
         this.c_pass=this.c_pass.bind(this);
       }
-
-    //check if logged in
-    loginchk(e){ 
-        console.log("check");
-        if(this.state.show==='false')
-        {
-            const loggedin = localStorage.getItem("admin");
-            if (loggedin!=null) {
-                this.setState({user:loggedin});
-                this.props.history.push('/adminmain');
-            }else{
-                this.showlg();}
-        }
-        else{this.hidebox();}
-        e.preventDefault();
-    }
     stoplg(){this.setState({lg_loading:false});}
     login(e){
         var valid=true;
@@ -45,11 +30,13 @@ class AdminLogin extends React.Component{
         const admin = {
             pass: this.state.pass
           };
-        axios.post(`127.0.0.1/landview/login.php`,admin)
+          console.log("aapu1");
+        axios.post(`http://127.0.0.1/landview/login.php`,admin)
         .then(res => {
+          console.log("aapu");
             this.setState({lg_loading:false});
-            console.log("--------"+res.data);
-          if(res.data==="success"){
+            console.log(res.data[0]["result"]);
+          if(res.data[0]["result"]==="success"){
             localStorage.setItem('admin',JSON.stringify(admin));
             this.props.history.push('/');
           }
@@ -76,7 +63,7 @@ class AdminLogin extends React.Component{
         
             {this.state.lg_loading?<button className={cx(styles.submit,styles.admsub)} onClick={this.login} disabled>
                                     <span className={bs['spinner-border']}></span></button>
-                                :<button className={cx(styles.submit,styles.admsub)} >Login</button>
+                                :<button className={cx(styles.submit,styles.admsub)} onClick={this.login}>Login</button>
             }
         </div>
         </form>
