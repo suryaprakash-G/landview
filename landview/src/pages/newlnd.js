@@ -13,26 +13,42 @@ class Newlnd extends React.Component{
         super(props);
         this.state = {
             name:"",
+            location:"",
+            address:"",
+            price:"",
+            area:"",
+            about:"",
+            city:"",
+            type:"",        
             load:false
         };
         axiosRetry(axios, { retries: 2 });
       }
       
     //value changing function
-    c_fname(e){this.setState({ fname: e.currentTarget.value});
-      this.setState({fnamefl:""})}
-    c_lname(e){this.setState({ lname: e.currentTarget.value});
-      this.setState({lnamefl:""})}
-    c_desc(e){this.setState({ desc: e.currentTarget.value});
-      this.setState({descfl:""})}
-    c_gen(e){this.setState({gen:e.currentTarget.value});}
+    c_name(e){this.setState({ name: e.currentTarget.value});
+      this.setState({namefl:""})}
+    c_location(e){this.setState({ location: e.currentTarget.value});
+      this.setState({locationfl:""})}
+    c_address(e){this.setState({ address: e.currentTarget.value});
+      this.setState({addressfl:""})}
+    c_price(e){this.setState({ price: e.currentTarget.value});
+      this.setState({pricefl:""})}
+    c_area(e){this.setState({ area: e.currentTarget.value});
+    this.setState({areafl:""})}
+    c_about(e){this.setState({ about: e.currentTarget.value});
+    this.setState({aboutfl:""})}
+    c_city(e){this.setState({ city: e.currentTarget.value});
+    this.setState({cityfl:""})}
+    c_type(e){this.setState({ type: e.currentTarget.value});
+    this.setState({typefl:""})}
     //from verification
     verify(){
         var valid=true;
-        if(this.state.fname===""){valid=false;
-          this.setState({fnamefl:"please enter first name"})}
-        if(this.state.lname===""){valid=false;
-          this.setState({lnamefl:"please enter last name"})}
+        if(this.state.name===""){valid=false;
+          this.setState({fnamefl:"please enter name"})}
+        if(this.state.location===""){valid=false;
+          this.setState({location:"please provide a location"})}
         if(this.state.desc===""){valid=false;
           this.setState({descfl:"description required"})}
         if(this.state.dob==="dd-mm-yy"){valid=false;
@@ -45,16 +61,14 @@ class Newlnd extends React.Component{
       this.setState({load:true});
       const loggedin = localStorage.getItem("user");
       const info = {
-        btime:timings[this.props.location.state.booktime],
-        day:this.state.bookdate.getDate(),
-        month:this.state.bookdate.getMonth()+1,
-        year:this.state.bookdate.getFullYear(),
-        doc:this.props.location.state.doc,
-        first_name:this.state.fname,
-        last_name:this.state.lname,
-        dob:this.state.dob,
-        gen:this.state.gen,
-        desc:this.state.desc,
+        name:this.state.name,
+        location:this.state.location,
+        address:this.state.address,
+        price:this.state.price,
+        area:this.state.area,
+        about:this.state.about,
+        city:this.state.city,
+        type:this.state.type,
         upass: JSON.parse(loggedin)["pass"],
       };
         axios.post(`https://bqhdj6kx2j.execute-api.ap-south-1.amazonaws.com/test/book`,info).then(res => {
@@ -80,21 +94,13 @@ class Newlnd extends React.Component{
         return(
         <div>
             <div className={cx(styles.header,bs.row)}>
-              Patient form
+              New Land
             </div>
-            <div className={styles.bookfor}>{"booking for "+this.state.bookdate.getDate()+'-'+(this.state.bookdate.getMonth()+1)+'-'+this.state.bookdate.getFullYear()
-              +"   ("+time[parseInt(this.state.booktime)]+") for doctor "+this.props.location.state.docname}</div>
             <div className={styles.form}>
                 <input value={this.state.fname} onChange={this.c_fname} className={styles.fname} placeholder="first name" />
                 <div className={styles.invalidtxt}>{this.state.fnamefl}</div>
                 <input value={this.state.lname} onChange={this.c_lname} className={styles.lname} placeholder="last name" />
                 <div className={styles.invalidtxt}>{this.state.lnamefl}</div>
-                <div className={styles.invalidtxt}>{this.state.dobfl}</div>
-                <select className={styles.gen} value={this.state.gen} onChange={this.c_gen}>
-                    <option value="female">female</option>
-                    <option value="male">male</option>
-                    <option value="other">other</option>
-                </select>
                 <input value={this.state.desc} onChange={this.c_desc} className={styles.desc} placeholder="description" />
                 <div className={styles.invalidtxt}>{this.state.descfl}</div>
                 {this.state.load?

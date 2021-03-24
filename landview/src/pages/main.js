@@ -6,7 +6,9 @@ import About from '../pages/about'
 import Contact from '../pages/contact'
 import bs from '../style/bootstrap.min.module.css';
 import cx from 'classnames';
+import Newlnd from './newlnd';
 var admin=false;
+var pass="";
 class Main extends React.Component{
     constructor(props){
         super(props);
@@ -17,6 +19,7 @@ class Main extends React.Component{
         }
         this.loginchk = this.loginchk.bind(this);
         this.loginchk();
+        this.newlnd=this.newlnd.bind(this);
         this.changepage = this.changepage.bind(this);
         axiosRetry(axios, { retries: 3 });
     }
@@ -27,19 +30,24 @@ class Main extends React.Component{
             const loggedin = localStorage.getItem("admin");
             if (loggedin!=null) {
                 console.log("admin clocked");
-                //this.setState({admin:true});
+                pass=JSON.parse(loggedin)["pass"];
+                admin=true;
             }
-        console.log(this.state.admin);
+            console.log(admin);
+            console.log(pass)
     }
     changepage(e){
         this.setState({page:e});
     }
-    
+    newlnd(){
+        console.log("new");
+        this.props.history.push('/new')
+    }
     render(){
         return(
         <div className={cx(styles['main'],bs['container-fluid'],styles.parallax)}>
             <div className={styles.header}> 
-                {this.state.admin?"S.M promoters   (ADMIN MODE)":"S.M promoters"}
+                {admin?"S.M promoters   (ADMIN MODE)":"S.M promoters"}
             </div>
             <div className={styles.topnav}>
                 <a className={this.state.page==="home"?styles.active:null} onClick={() => this.changepage("home")}>Home</a>
@@ -49,9 +57,8 @@ class Main extends React.Component{
             </div>
             {this.state.page==="home"?
             <div className={styles.home}>
-                {this.state.admin?
-                <button className={styles.newbtn} onClick={
-                    this.props.history.push('/')}>New land</button>:null}
+                {admin?
+                <button className={styles.newbtn} onClick={this.newlnd}>New land</button>:null}
             </div>:null}
             {this.state.page==="about"?
             <div className={styles.about}>
