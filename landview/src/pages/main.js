@@ -6,7 +6,6 @@ import About from '../pages/about'
 import Contact from '../pages/contact'
 import bs from '../style/bootstrap.min.module.css';
 import cx from 'classnames';
-import Newlnd from './newlnd';
 var admin=false;
 var pass="";
 class Main extends React.Component{
@@ -40,8 +39,7 @@ class Main extends React.Component{
         this.setState({page:e});
     }
     newlnd(){
-        console.log("new");
-        this.props.history.push('/new')
+        this.props.history.push('/new');
     }
     render(){
         return(

@@ -13,7 +13,6 @@ class Newlnd extends React.Component{
         super(props);
         this.state = {
             name:"",
-            location:"",
             address:"",
             price:"",
             area:"",
@@ -28,8 +27,6 @@ class Newlnd extends React.Component{
     //value changing function
     c_name(e){this.setState({ name: e.currentTarget.value});
       this.setState({namefl:""})}
-    c_location(e){this.setState({ location: e.currentTarget.value});
-      this.setState({locationfl:""})}
     c_address(e){this.setState({ address: e.currentTarget.value});
       this.setState({addressfl:""})}
     c_price(e){this.setState({ price: e.currentTarget.value});
@@ -97,12 +94,13 @@ class Newlnd extends React.Component{
               New Land
             </div>
             <div className={styles.form}>
-                <input value={this.state.fname} onChange={this.c_fname} className={styles.fname} placeholder="first name" />
-                <div className={styles.invalidtxt}>{this.state.fnamefl}</div>
-                <input value={this.state.lname} onChange={this.c_lname} className={styles.lname} placeholder="last name" />
-                <div className={styles.invalidtxt}>{this.state.lnamefl}</div>
-                <input value={this.state.desc} onChange={this.c_desc} className={styles.desc} placeholder="description" />
-                <div className={styles.invalidtxt}>{this.state.descfl}</div>
+                <input value={this.state.fname} onChange={this.name} className={styles.name} placeholder="name" />
+                <div className={styles.invalidtxt}>{this.state.namefl}</div>
+                <input type="number"  data-decimals="2" min="0.1" max="999" step="0.1"/><br/>
+                <input value={this.state.lname} onChange={this.c_address} className={styles.address} placeholder="address" />
+                <div className={styles.invalidtxt}>{this.state.addressfl}</div>
+                <input value={this.state.desc} onChange={this.c_about} className={styles.about} placeholder="about" />
+                <div className={styles.invalidtxt}>{this.state.aboutfl}</div>
                 {this.state.load?
                 <button className={cx(styles.submit,styles.patsub)} onClick={this.verify}>
                   <span className={cx(bs["spinner-border"],bs["spin-white"])}></span></button>:

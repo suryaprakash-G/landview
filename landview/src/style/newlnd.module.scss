@@ -1,1 +1,22 @@
 @import './global.scss';
+.header{
+    justify-content: center;
+    margin: 0%;
+    padding: 1%;
+    font-size: 40px;
+    color: whitesmoke;
+    background-color:$primary;
+    text-align: center;
+}
+.submit{
+    font-size: 30px;
+    align-self: center;
+    background:$primary;
+    color: #fff;
+    border: none;
+    border-radius: 20px 20px;
+    width: 30%;
+    height: 45px;
+    min-width: 120px;
+    margin-left: 30%;
+    margin-top: 5%;}
