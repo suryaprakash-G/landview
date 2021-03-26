@@ -21,6 +21,14 @@ class Newlnd extends React.Component{
             type:"",        
             load:false
         };
+        this.c_name=this.c_name.bind(this);
+        this.c_address=this.c_address.bind(this);
+        this.c_price=this.c_price.bind(this);
+        this.c_priceunit=this.c_priceunit.bind(this);
+        this.c_area=this.c_area.bind(this);
+        this.c_about=this.c_about.bind(this);
+        this.c_city=this.c_city.bind(this);
+        this.c_type=this.c_type.bind(this);
         axiosRetry(axios, { retries: 2 });
       }
       
@@ -29,10 +37,12 @@ class Newlnd extends React.Component{
       this.setState({namefl:""})}
     c_address(e){this.setState({ address: e.currentTarget.value});
       this.setState({addressfl:""})}
-    c_price(e){this.setState({ price: e.currentTarget.value});
+    c_price(e){this.setState({ price: e.target.value});
       this.setState({pricefl:""})}
+    c_priceunit(e){this.setState({priceunit:e.currentTarget.value});}
     c_area(e){this.setState({ area: e.currentTarget.value});
     this.setState({areafl:""})}
+    c_areaunit(e){this.setState({areaunit:e.currentTarget.value});}
     c_about(e){this.setState({ about: e.currentTarget.value});
     this.setState({aboutfl:""})}
     c_city(e){this.setState({ city: e.currentTarget.value});
@@ -41,6 +51,8 @@ class Newlnd extends React.Component{
     this.setState({typefl:""})}
     //from verification
     verify(){
+
+      console.log(this.state.price);
         var valid=true;
         if(this.state.name===""){valid=false;
           this.setState({fnamefl:"please enter name"})}
@@ -96,7 +108,16 @@ class Newlnd extends React.Component{
             <div className={styles.form}>
                 <input value={this.state.fname} onChange={this.name} className={styles.name} placeholder="name" />
                 <div className={styles.invalidtxt}>{this.state.namefl}</div>
-                <input type="number"  data-decimals="2" min="0.1" max="999" step="0.1"/><br/>
+                price:  <input type="number" value={this.state.price} onInput={this.c_price} data-decimals="2" min="0.1" max="999" step="0.1"/>
+                <select className={styles.priceunit} value={this.state.priceunit} onChange={this.c_priceunit}>
+                    <option value="Lakh">Lakh</option>
+                    <option value="Crore">Core</option>
+                </select><br/>
+                area: <input type="number" value={this.state.area} onInput={this.c_area} data-decimals="2" min="0.1" max="999" step="0.1"/>
+                <select className={styles.areaunit} value={this.state.areaunit} onChange={this.c_areaunit}>
+                    <option value="Sq ft">Sq ft</option>
+                    <option value="Acres">Acres</option>
+                </select><br/>
                 <input value={this.state.lname} onChange={this.c_address} className={styles.address} placeholder="address" />
                 <div className={styles.invalidtxt}>{this.state.addressfl}</div>
                 <input value={this.state.desc} onChange={this.c_about} className={styles.about} placeholder="about" />
