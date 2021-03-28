@@ -20,3 +20,58 @@
     min-width: 120px;
     margin-left: 30%;
     margin-top: 5%;}
+.form { 
+    margin: 0 auto; 
+    width:450px;
+    }
+.name{
+    min-width: 150px;
+    width: 100%;
+    padding: 2%;
+    margin-top: 5%;
+}
+.address{
+    min-width: 150px;
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    height: 100px;
+    margin-top: 5%;
+}
+.about{
+    min-width: 150px;
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    height: 300px;
+    margin-top: 5%;
+}
+.city{
+    min-width: 150px;
+    width: 100%;
+    height: 50px;
+    padding: 2%;
+    margin-top: 5%;
+}
+.type{
+    min-width: 150px;
+    width: 100%;
+    height: 50px;
+    padding: 2%;
+    margin-top: 5%;
+}
+.vals{
+    min-width: 150px;
+    width: 100%;
+    height: 100%;
+}
+.valbx{
+    margin: 3%;
+}
+@media only screen and (max-width: 690px) {
+    .form { 
+        margin: 0 auto; 
+        width: 100%;
+        padding: 5%;
+        }
+}

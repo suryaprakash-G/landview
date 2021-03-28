@@ -15,7 +15,9 @@ class Newlnd extends React.Component{
             name:"",
             address:"",
             price:"",
+            priceunit:"Lakh",
             area:"",
+            areaunit:"Sq ft",
             about:"",
             city:"",
             type:"",        
@@ -26,9 +28,11 @@ class Newlnd extends React.Component{
         this.c_price=this.c_price.bind(this);
         this.c_priceunit=this.c_priceunit.bind(this);
         this.c_area=this.c_area.bind(this);
+        this.c_areaunit=this.c_areaunit.bind(this);
         this.c_about=this.c_about.bind(this);
         this.c_city=this.c_city.bind(this);
         this.c_type=this.c_type.bind(this);
+        this.verify=this.verify.bind(this);
         axiosRetry(axios, { retries: 2 });
       }
       
@@ -51,42 +55,46 @@ class Newlnd extends React.Component{
     this.setState({typefl:""})}
     //from verification
     verify(){
-
-      console.log(this.state.price);
-        var valid=true;
-        if(this.state.name===""){valid=false;
-          this.setState({fnamefl:"please enter name"})}
-        if(this.state.location===""){valid=false;
-          this.setState({location:"please provide a location"})}
-        if(this.state.desc===""){valid=false;
-          this.setState({descfl:"description required"})}
-        if(this.state.dob==="dd-mm-yy"){valid=false;
-          this.setState({dobfl:"please select date of birth"})}
-        if(valid===true){this.send_form()}
+      var valid=true;
+      if(this.state.name===""){valid=false;
+        this.setState({namefl:"please enter name"})}
+      if(this.state.address===""){valid=false;
+        this.setState({addressfl:"please provide an address"})}
+      if(this.state.price===""){valid=false;
+        this.setState({pricefl:"price required"})}
+      if(this.state.area===""){valid=false;
+        this.setState({areafl:"please specify area of property"})}
+      if(this.state.about===""){valid=false;
+        this.setState({aboutfl:"please describe something about the property"})}
+      if(this.state.city===""){valid=false;
+        this.setState({cityfl:"please mention city"})}
+      if(this.state.type===""){valid=false;
+        this.setState({typefl:"please mention type of property"})}
+      if(valid===true){this.send_form()}
     }
 
     //send form
     send_form(){
-      this.setState({load:true});
-      const loggedin = localStorage.getItem("user");
+      const loggedin = localStorage.getItem("admin");
       const info = {
         name:this.state.name,
-        location:this.state.location,
         address:this.state.address,
-        price:this.state.price,
-        area:this.state.area,
+        price:this.state.price+" "+this.state.priceunit,
+        area:this.state.area+" "+this.state.areaunit,
         about:this.state.about,
         city:this.state.city,
         type:this.state.type,
         upass: JSON.parse(loggedin)["pass"],
       };
-        axios.post(`https://bqhdj6kx2j.execute-api.ap-south-1.amazonaws.com/test/book`,info).then(res => {
-           if(res.data["message"]!=="Internal server error"){
-                    if(res.data==="booked"){
-                      alert("appointment booked");
-                      this.props.history.push("/book");
-                    }
-                  }
+      console.log(info);
+        axios.post(`http://127.0.0.1/landview/new.php`,info).then(res => {
+          console.log(res.data[0]["result"]);
+              if(res.data[0]["result"]==="success"){
+                alert("new land added");
+                this.props.history.push("/");
+              }else if(res.data[0]["result"]==="name exists"){
+                alert("land name  already exists try new name");
+              }
               else{
                 alert("something went wrong retry please");
               }
@@ -106,22 +114,32 @@ class Newlnd extends React.Component{
               New Land
             </div>
             <div className={styles.form}>
-                <input value={this.state.fname} onChange={this.name} className={styles.name} placeholder="name" />
+                <input value={this.state.name} onChange={this.c_name} className={styles.name} placeholder="name" />
                 <div className={styles.invalidtxt}>{this.state.namefl}</div>
-                price:  <input type="number" value={this.state.price} onInput={this.c_price} data-decimals="2" min="0.1" max="999" step="0.1"/>
-                <select className={styles.priceunit} value={this.state.priceunit} onChange={this.c_priceunit}>
+                <div className={styles.vals}>
+                price:  <input className={styles.valbx} type="number" value={this.state.price} onInput={this.c_price} data-decimals="2" min="0.1" max="999" step="0.1"/>
+                <select className={styles.valbx} className={styles.priceunit} value={this.state.priceunit} onChange={this.c_priceunit}>
                     <option value="Lakh">Lakh</option>
                     <option value="Crore">Core</option>
-                </select><br/>
-                area: <input type="number" value={this.state.area} onInput={this.c_area} data-decimals="2" min="0.1" max="999" step="0.1"/>
-                <select className={styles.areaunit} value={this.state.areaunit} onChange={this.c_areaunit}>
+                </select>
+                <div className={styles.invalidtxt}>{this.state.pricefl}</div>
+                <br/></div>
+                <div className={styles.vals}>
+                area: <input className={styles.valbx} type="number" value={this.state.area} onInput={this.c_area} data-decimals="2" min="0.1" max="999" step="0.1"/>
+                <select className={styles.valbx} className={styles.areaunit} value={this.state.areaunit} onChange={this.c_areaunit}>
                     <option value="Sq ft">Sq ft</option>
                     <option value="Acres">Acres</option>
-                </select><br/>
-                <input value={this.state.lname} onChange={this.c_address} className={styles.address} placeholder="address" />
+                </select>
+                <div className={styles.invalidtxt}>{this.state.areafl}</div>
+                <br/></div>
+                <textarea value={this.state.address} onChange={this.c_address} className={styles.address} placeholder="address" />
                 <div className={styles.invalidtxt}>{this.state.addressfl}</div>
-                <input value={this.state.desc} onChange={this.c_about} className={styles.about} placeholder="about" />
+                <input value={this.state.city} onChange={this.c_city} className={styles.city} placeholder="city" />
+                <div className={styles.invalidtxt}>{this.state.cityfl}</div>
+                <textarea value={this.state.desc} onChange={this.c_about} className={styles.about} placeholder="about" />
                 <div className={styles.invalidtxt}>{this.state.aboutfl}</div>
+                <input value={this.state.type} onChange={this.c_type} className={styles.type} placeholder="type of property" />
+                <div className={styles.invalidtxt}>{this.state.typefl}</div>
                 {this.state.load?
                 <button className={cx(styles.submit,styles.patsub)} onClick={this.verify}>
                   <span className={cx(bs["spinner-border"],bs["spin-white"])}></span></button>:

@@ -8,6 +8,7 @@ import bs from '../style/bootstrap.min.module.css';
 import cx from 'classnames';
 var admin=false;
 var pass="";
+var lands=[];
 class Main extends React.Component{
     constructor(props){
         super(props);
@@ -41,6 +42,9 @@ class Main extends React.Component{
     newlnd(){
         this.props.history.push('/new');
     }
+    loadlnd(){
+
+    }
     render(){
         return(
         <div className={cx(styles['main'],bs['container-fluid'],styles.parallax)}>
@@ -57,6 +61,29 @@ class Main extends React.Component{
             <div className={styles.home}>
                 {admin?
                 <button className={styles.newbtn} onClick={this.newlnd}>New land</button>:null}
+                <InfiniteScroll
+                    dataLength={items.length} //This is important field to render the next data
+                    next={loadlnd}
+                    hasMore={true}
+                    loader={<h4>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: 'center' }}>
+                        <b>end of page</b>
+                        </p>
+                    }
+                    // below props only if you need pull down functionality
+                    refreshFunction={this.refresh}
+                    pullDownToRefresh
+                    pullDownToRefreshThreshold={50}
+                    pullDownToRefreshContent={
+                        <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+                    }
+                    releaseToRefreshContent={
+                        <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+                    }
+                    >
+                    {items}
+                </InfiniteScroll>
             </div>:null}
             {this.state.page==="about"?
             <div className={styles.about}>
