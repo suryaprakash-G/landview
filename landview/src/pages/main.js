@@ -5,6 +5,7 @@ import axiosRetry from 'axios-retry';
 import About from '../pages/about'
 import Contact from '../pages/contact'
 import bs from '../style/bootstrap.min.module.css';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import cx from 'classnames';
 var admin=false;
 var pass="";
@@ -21,6 +22,8 @@ class Main extends React.Component{
         this.loginchk();
         this.newlnd=this.newlnd.bind(this);
         this.changepage = this.changepage.bind(this);
+        this.loadlnd=this.loadlnd.bind(this);
+        this.refresh=this.refresh.bind(this);
         axiosRetry(axios, { retries: 3 });
     }
       
@@ -43,7 +46,25 @@ class Main extends React.Component{
         this.props.history.push('/new');
     }
     loadlnd(){
-
+        console.log("next");
+        axios.post(`http://127.0.0.1/landview/.php`,admin)
+        .then(res => {
+          console.log("aapu");
+            this.setState({lg_loading:false});
+            console.log(res.data[0]["result"]);
+          if(res.data[0]["result"]==="success"){
+            localStorage.setItem('admin',JSON.stringify(admin));
+            this.props.history.push('/');
+          }
+          else{
+              this.setState({invalid:"invalid password"});
+          }
+        }).catch(error => {
+            this.stoplg();
+          });
+    }
+    refresh(){
+        console.log("refresh");
     }
     render(){
         return(
@@ -62,8 +83,8 @@ class Main extends React.Component{
                 {admin?
                 <button className={styles.newbtn} onClick={this.newlnd}>New land</button>:null}
                 <InfiniteScroll
-                    dataLength={items.length} //This is important field to render the next data
-                    next={loadlnd}
+                    dataLength={lands.length} //This is important field to render the next data
+                    next={this.loadlnd}
                     hasMore={true}
                     loader={<h4>Loading...</h4>}
                     endMessage={
@@ -82,7 +103,7 @@ class Main extends React.Component{
                         <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
                     }
                     >
-                    {items}
+                    {lands}
                 </InfiniteScroll>
             </div>:null}
             {this.state.page==="about"?
