@@ -5,7 +5,11 @@ import bs from '../style/bootstrap.min.module.css';
 import cx from 'classnames';
 import './history.js';
 import styles from '../style/adminlogin.module.scss';
-
+function landcard(props) {
+  return <div>
+      <h1>{props.name}</h1>
+    </div>;
+}
 class AdminLogin extends React.Component{
     constructor(props) {
         super(props);
