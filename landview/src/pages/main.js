@@ -16,6 +16,7 @@ class Main extends React.Component{
         this.state={
         admin:false,
         pass:'',
+        count:1,
         page:'home'
         }
         this.loginchk = this.loginchk.bind(this);
@@ -47,17 +48,18 @@ class Main extends React.Component{
     }
     loadlnd(){
         console.log("next");
-        axios.post(`http://127.0.0.1/landview/.php`,admin)
+        axios.post(`http://127.0.0.1/landview/new.php`,this.state.count)
         .then(res => {
-          console.log("aapu");
+          console.log(res.data);
             this.setState({lg_loading:false});
             console.log(res.data[0]["result"]);
+            const i=this.state.count+1
+            this.setState({count:i});
           if(res.data[0]["result"]==="success"){
-            localStorage.setItem('admin',JSON.stringify(admin));
-            this.props.history.push('/');
+              console.log("success")
           }
           else{
-              this.setState({invalid:"invalid password"});
+              this.setState({invalid:"end"});
           }
         }).catch(error => {
             this.stoplg();
