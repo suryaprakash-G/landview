@@ -30,15 +30,12 @@ class Main extends React.Component{
       
           //check if logged in
     loginchk(){
-        console.log("entered");
             const loggedin = localStorage.getItem("admin");
             if (loggedin!=null) {
                 console.log("admin clocked");
                 pass=JSON.parse(loggedin)["pass"];
                 admin=true;
             }
-            console.log(admin);
-            console.log(pass)
     }
     changepage(e){
         this.setState({page:e});
@@ -48,21 +45,22 @@ class Main extends React.Component{
     }
     loadlnd(){
         console.log("next");
-        axios.post(`http://127.0.0.1/landview/new.php`,this.state.count)
+        axios.post(`http://127.0.0.1/tst.php`,{ind:})
         .then(res => {
           console.log(res.data);
-            this.setState({lg_loading:false});
+          /*  this.setState({lg_loading:false});
             console.log(res.data[0]["result"]);
             const i=this.state.count+1
             this.setState({count:i});
           if(res.data[0]["result"]==="success"){
+
               console.log("success")
           }
           else{
               this.setState({invalid:"end"});
-          }
+          }*/
         }).catch(error => {
-            this.stoplg();
+            console.log(error);
           });
     }
     refresh(){
