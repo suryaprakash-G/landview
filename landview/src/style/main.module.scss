@@ -84,13 +84,24 @@
   }
   .newbtn{
     float: right;
-    margin: 2%;
     color: white;
+    margin-top: 3px;
+    margin-bottom: 3px;
     border-radius: 30px;
     background-color: $primary;
     height: 40px;
     width: 140px;
   }
+.infscroll{
+  height: auto;
+}
+.cardimg{
+  text-align: center;
+  padding-top: 50%;
+  color: red;
+  height: 200px;
+  width: 300px;
+}
 @media only screen and (max-width: 690px) {
 .topnav a, .topnav input[type=text] {
     float: none;

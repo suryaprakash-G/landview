@@ -7,9 +7,18 @@ import Contact from '../pages/contact'
 import bs from '../style/bootstrap.min.module.css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import cx from 'classnames';
+import { withRouter } from 'react-router';
 var admin=false;
 var pass="";
 var lands=[];
+const lncrd = {
+    "font-weight": "850",
+    height: 400,
+    width:500,
+    border: "1px solid green",
+    margin: 6,
+    padding: 8
+  };
 class Main extends React.Component{
     constructor(props){
         super(props);
@@ -45,20 +54,19 @@ class Main extends React.Component{
     }
     loadlnd(){
         console.log("next");
-        axios.post(`http://127.0.0.1/tst.php`,{ind:})
+        axios.post(`http://127.0.0.1/landview/load.php`,{ind:this.state.count})
         .then(res => {
           console.log(res.data);
-          /*  this.setState({lg_loading:false});
             console.log(res.data[0]["result"]);
+          if(res.data[0]["result"]==="success"){
+            lands[this.state.count]=res.data[0]["lnd"]["0"];
             const i=this.state.count+1
             this.setState({count:i});
-          if(res.data[0]["result"]==="success"){
-
-              console.log("success")
+            console.log("success count ++")
           }
           else{
               this.setState({invalid:"end"});
-          }*/
+          }
         }).catch(error => {
             console.log(error);
           });
@@ -76,15 +84,16 @@ class Main extends React.Component{
                 <a className={this.state.page==="home"?styles.active:null} onClick={() => this.changepage("home")}>Home</a>
                 <a className={this.state.page==="about"?styles.active:null}  onClick={() => this.changepage("about")}>About</a>
                 <a className={this.state.page==="contact"?styles.active:null}  onClick={() => this.changepage("contact")}>Contact</a>
+                {admin?<button className={styles.newbtn} onClick={this.newlnd}>New land</button>:null}
                 {this.state.page==="home"?<input type="text" placeholder="Search.."></input>:null}
             </div>
             {this.state.page==="home"?
             <div className={styles.home}>
-                {admin?
-                <button className={styles.newbtn} onClick={this.newlnd}>New land</button>:null}
+                
                 <InfiniteScroll
                     dataLength={lands.length} //This is important field to render the next data
                     next={this.loadlnd}
+                    className={styles.infscroll}
                     hasMore={true}
                     loader={<h4>Loading...</h4>}
                     endMessage={
@@ -102,8 +111,14 @@ class Main extends React.Component{
                     releaseToRefreshContent={
                         <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
                     }
-                    >
-                    {lands}
+                    ><div className={bs["row"]}>
+                    {lands.map((i, index) => (
+                        <div style={lncrd} key={index}>
+                          {(i["n"])}
+                          <img className={styles.cardimg} src={"127.0.0.1/landview/images/"+i["n"]+"/0.jpg"} alt="no image"/>
+                        </div>
+                      ))}
+                      </div>
                 </InfiniteScroll>
             </div>:null}
             {this.state.page==="about"?

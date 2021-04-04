@@ -117,7 +117,7 @@ class Newlnd extends React.Component{
                 <input value={this.state.name} onChange={this.c_name} className={styles.name} placeholder="name" />
                 <div className={styles.invalidtxt}>{this.state.namefl}</div>
                 <div className={styles.vals}>
-                price:  <input className={styles.valbx} type="number" value={this.state.price} onInput={this.c_price} data-decimals="2" min="0.1" max="999" step="0.1"/>
+                price:  <input className={styles.valbx} type="number" value={this.state.price} onInput={this.c_price} data-decimals="2" min="0.1" max="9999" step="0.1"/>
                 <select className={styles.valbx} className={styles.priceunit} value={this.state.priceunit} onChange={this.c_priceunit}>
                     <option value="Lakh">Lakh</option>
                     <option value="Crore">Core</option>
@@ -125,7 +125,7 @@ class Newlnd extends React.Component{
                 <div className={styles.invalidtxt}>{this.state.pricefl}</div>
                 <br/></div>
                 <div className={styles.vals}>
-                area: <input className={styles.valbx} type="number" value={this.state.area} onInput={this.c_area} data-decimals="2" min="0.1" max="999" step="0.1"/>
+                area: <input className={styles.valbx} type="number" value={this.state.area} onInput={this.c_area} data-decimals="2" min="0.1" max="9999999" step="0.1"/>
                 <select className={styles.valbx} className={styles.areaunit} value={this.state.areaunit} onChange={this.c_areaunit}>
                     <option value="Sq ft">Sq ft</option>
                     <option value="Acres">Acres</option>
