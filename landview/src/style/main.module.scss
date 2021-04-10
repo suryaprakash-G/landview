@@ -93,14 +93,13 @@
     width: 140px;
   }
 .infscroll{
-  height: auto;
+  height: 100%;
 }
 .cardimg{
   text-align: center;
-  padding-top: 50%;
   color: red;
-  height: 200px;
-  width: 300px;
+  height: 300px;
+  width: 400px;
 }
 @media only screen and (max-width: 690px) {
 .topnav a, .topnav input[type=text] {

@@ -37,7 +37,7 @@ if(isset($postdata) && !empty($postdata)){
                         ),
                     ));
             }
-            else{ array_push($processResult, array("result" => "failprd"));}
+            else{ array_push($processResult, array("result" => "noland"));}
         }
     }
 

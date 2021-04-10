@@ -12,7 +12,7 @@ var admin=false;
 var pass="";
 var lands=[];
 const lncrd = {
-    "font-weight": "850",
+    fontWeight: "850",
     height: 400,
     width:500,
     border: "1px solid green",
@@ -26,13 +26,14 @@ class Main extends React.Component{
         admin:false,
         pass:'',
         count:1,
+        hasmore:true,
         page:'home'
         }
         this.loginchk = this.loginchk.bind(this);
         this.loginchk();
+        this.loadlnd=this.loadlnd.bind(this);
         this.newlnd=this.newlnd.bind(this);
         this.changepage = this.changepage.bind(this);
-        this.loadlnd=this.loadlnd.bind(this);
         this.refresh=this.refresh.bind(this);
         axiosRetry(axios, { retries: 3 });
     }
@@ -65,7 +66,7 @@ class Main extends React.Component{
             console.log("success count ++")
           }
           else{
-              this.setState({invalid:"end"});
+              this.setState({hasmore:false});
           }
         }).catch(error => {
             console.log(error);
@@ -94,7 +95,7 @@ class Main extends React.Component{
                     dataLength={lands.length} //This is important field to render the next data
                     next={this.loadlnd}
                     className={styles.infscroll}
-                    hasMore={true}
+                    hasMore={this.state.hasmore}
                     loader={<h4>Loading...</h4>}
                     endMessage={
                         <p style={{ textAlign: 'center' }}>
@@ -114,9 +115,11 @@ class Main extends React.Component{
                     ><div className={bs["row"]}>
                     {lands.map((i, index) => (
                         <div style={lncrd} key={index}>
-                          {(i["n"])}
-                          <img className={styles.cardimg} src={"127.0.0.1/landview/images/"+i["n"]+"/0.jpg"} alt="no image"/>
-                        </div>
+                          <div className={styles.crdtxt}>{(i["n"])}</div>
+                          <img className={styles.cardimg} src={"http://127.0.0.1/landview/images/"+i["n"]+"/0.png"} alt="no image"/>
+
+                          <div className={styles.crdtxt}>{(i["p"])}</div>
+                          </div>
                       ))}
                       </div>
                 </InfiniteScroll>
