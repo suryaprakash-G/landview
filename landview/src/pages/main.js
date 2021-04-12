@@ -35,7 +35,12 @@ class Main extends React.Component{
         this.newlnd=this.newlnd.bind(this);
         this.changepage = this.changepage.bind(this);
         this.refresh=this.refresh.bind(this);
+        this.detaild=this.detaild.bind(this);
         axiosRetry(axios, { retries: 3 });
+    }
+
+    componentDidMount(){
+        
     }
       
           //check if logged in
@@ -53,9 +58,17 @@ class Main extends React.Component{
     newlnd(){
         this.props.history.push('/new');
     }
-    loadlnd(){
+    detaild(e){
+        var name= e.currentTarget.value;
+        console.log(name);
+        this.props.history.push({pathname:'/details',
+                    state: {
+                        n:name,
+                    }});
+    }
+    async loadlnd(){
         console.log("next");
-        axios.post(`http://127.0.0.1/landview/load.php`,{ind:this.state.count})
+        await axios.post(`http://127.0.0.1/landview/load.php`,{ind:this.state.count})
         .then(res => {
           console.log(res.data);
             console.log(res.data[0]["result"]);
@@ -116,9 +129,10 @@ class Main extends React.Component{
                     {lands.map((i, index) => (
                         <div style={lncrd} key={index}>
                           <div className={styles.crdtxt}>{(i["n"])}</div>
-                          <img className={styles.cardimg} src={"http://127.0.0.1/landview/images/"+i["n"]+"/0.png"} alt="no image"/>
-
                           <div className={styles.crdtxt}>{(i["p"])}</div>
+                          <img className={styles.cardimg} src={"http://127.0.0.1/landview/images/"+i["n"]+"/0.png"}
+                           alt="no image"/>
+                          <button className={styles.viewdtls} onClick={this.detaild} value={i["n"]}>View details</button>
                           </div>
                       ))}
                       </div>

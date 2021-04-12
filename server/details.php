@@ -8,9 +8,9 @@ $processResult = array();
 if(isset($postdata) && !empty($postdata)){
     //decoding json body
     $data = json_decode($postdata);
-    if(isset($data->ind)){
-        $ind=$data->ind;
-        $sql = "SELECT * FROM `lands` WHERE `id` like '$ind'";
+    if(isset($data->name)){
+        $name=$data->name;
+        $sql = "SELECT * FROM `lands` WHERE `name` like '$name'";
     }else if(isset($data->name)){
         $name=$data->name;
         $sql = "SELECT * FROM `lands` WHERE `name` like '$name'";
@@ -25,8 +25,14 @@ if(isset($postdata) && !empty($postdata)){
                         "result" => "success",
                         "lnd" =>
                         array(array(
-                            "n" => $row["name"],
-                            "p" => $row["price"],)
+                            "i" => $row["id"],
+                            "i" => $row["images"],
+                            "ad" => $row["address"],
+                            "p" => $row["price"],
+                            "ar" => $row["area"],
+                            "c" => $row["city"],
+                            "t" => $row["type"],
+                            "a" => $row["about"])
                         ),
                     ));
             }
