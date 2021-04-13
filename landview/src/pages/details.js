@@ -72,11 +72,32 @@ class Details extends React.Component{
     render(){
         return(
         <div className={cx(styles['page'],bs['container-fluid'])}>
-        <div>
-          <div>{this.state.name}</div>
-          <div>{this.state.about}</div>
-          <div>{this.state.area}</div>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="..." alt="First slide"/>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="..." alt="Second slide"/>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="..." alt="Third slide"/>
+          </div>
         </div>
+      </div>
+        <div className={styles.title}>name</div>
+          <div className={styles.content}>{this.state.name}</div>
+        <div className={styles.title}>area</div>
+            <div className={styles.content}>{this.state.area}</div>
+        <div className={styles.title}>about</div>
+          <div className={styles.content}>{this.state.about}</div>
+        <div className={styles.title}>price</div>
+            <div className={styles.content}>{this.state.price}</div>
+        <div className={styles.title}>address</div>
+          <div className={styles.content}>{this.state.address}</div>
+        <div className={styles.title}>city</div>
+            <div className={styles.content}>{this.state.city}</div>
+        
         </div>)}
 }
 export default Details;
