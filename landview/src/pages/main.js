@@ -39,9 +39,7 @@ class Main extends React.Component{
         axiosRetry(axios, { retries: 3 });
     }
 
-    componentDidMount(){
-        
-    }
+    
       
           //check if logged in
     loginchk(){
