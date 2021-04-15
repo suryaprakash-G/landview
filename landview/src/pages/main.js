@@ -128,7 +128,7 @@ class Main extends React.Component{
                         <div style={lncrd} key={index}>
                           <div className={styles.crdtxt}>{(i["n"])}</div>
                           <div className={styles.crdtxt}>{(i["p"])}</div>
-                          <img className={styles.cardimg} src={"http://127.0.0.1/landview/images/"+i["n"]+"/0.png"}
+                          <img className={styles.cardimg} src={"http://127.0.0.1/landview/images/"+i["n"]+"/1.jpg"}
                            alt="no image"/>
                           <button className={styles.viewdtls} onClick={this.detaild} value={i["n"]}>View details</button>
                           </div>
