@@ -1,6 +1,9 @@
 
 @import './global.scss';
 .title{color: $primary;}
+.uploadbtn{
+    border-radius: 50px;
+}
 .content{
     padding: 1%;
 }

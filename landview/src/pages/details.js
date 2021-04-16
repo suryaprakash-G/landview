@@ -26,6 +26,7 @@ class Details extends React.Component{
         }
         this.loginchk = this.loginchk.bind(this);
         this.dtload = this.dtload.bind(this);
+        this.upload= this.upload.bind(this);
         this.loginchk();
         axiosRetry(axios, { retries: 3 });
     }
@@ -36,6 +37,8 @@ class Details extends React.Component{
             this.props.history.push('/');
         }
         this.dtload();
+    }
+    upload(){
     }
     dtload(){
         axios.post(`http://127.0.0.1/landview/details.php`,{name:this.props.location.state.n})
@@ -101,7 +104,7 @@ class Details extends React.Component{
                 </div>
         }
         {
-          admin?<button>upload image</button>:null}
+          admin?<button className={styles.uploadbtn} onClick={this.upload}>upload image</button>:null}
         <div className={styles.title}>name</div>
           <div className={styles.content}>{this.state.name}</div>
         <div className={styles.title}>area</div>
