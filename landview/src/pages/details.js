@@ -22,11 +22,14 @@ class Details extends React.Component{
         area:"",
         city:"",
         type:"",
-        about:""
+        about:"",
+        uploadind:0,
+        gotimg:false,
         }
         this.loginchk = this.loginchk.bind(this);
         this.dtload = this.dtload.bind(this);
         this.upload= this.upload.bind(this);
+        this.onChange= this.onChange.bind(this);
         this.loginchk();
         axiosRetry(axios, { retries: 3 });
     }
@@ -38,7 +41,28 @@ class Details extends React.Component{
         }
         this.dtload();
     }
-    upload(){
+    upload(e){
+      let files=e.target.files;
+      console.warn("file: ",files);
+      axios.post(`http://127.0.0.1/landview/upload.php`, files, {
+          headers: {
+            'Content-Type': file.type
+          }
+      }, {params:{
+        "land":this.state.name,
+        "pic":this.state.uploadind
+      }}).then(res => {
+        console.log(res.data);
+      }).catch(error => {
+          console.log(error);
+        });
+      
+    }
+    onChange(e) {
+      var files = e.target.files;
+      console.log(files);
+      var filesArr = Array.prototype.slice.call(files);
+      console.log(filesArr);
     }
     dtload(){
         axios.post(`http://127.0.0.1/landview/details.php`,{name:this.props.location.state.n})
@@ -66,10 +90,12 @@ class Details extends React.Component{
                 thumbnail: "http://127.0.0.1/landview/images/"+this.props.location.state.n+"/"+i+".jpg",
                 thumbnailWidth: 320,
                 thumbnailHeight: 174,
-                caption: i
+                title:i.toString,
+                caption: i.toString
               });
             }
-            this.setState({updateui:"yes"});
+            console.log("updated");
+            this.setState({gotimg:true});
           }
           }
           else{
@@ -92,6 +118,7 @@ class Details extends React.Component{
         return(
         <div className={cx(styles['page'])}>
         {this.state.noimg?<div>no images</div>:
+        this.state.gotimg?
         <div style={{
                     display: "block",
                     minHeight: "1px",
@@ -101,10 +128,11 @@ class Details extends React.Component{
                 <Gallery
             images={images}
             enableImageSelection={false}/>
-                </div>
+                </div>:null
         }
         {
-          admin?<button className={styles.uploadbtn} onClick={this.upload}>upload image</button>:null}
+          admin?
+          <input type="file" multiple onChange={this.onChange} />:null}
         <div className={styles.title}>name</div>
           <div className={styles.content}>{this.state.name}</div>
         <div className={styles.title}>area</div>

@@ -22,6 +22,7 @@ const lncrd = {
 class Main extends React.Component{
     constructor(props){
         super(props);
+        this.myRef = React.createRef()   // Create a ref object 
         this.state={
         admin:false,
         pass:'',
@@ -39,7 +40,9 @@ class Main extends React.Component{
         axiosRetry(axios, { retries: 3 });
     }
 
-    
+    componentDidMount() {
+        this.myRef.current.scrollTo(1, 0);
+      }
       
           //check if logged in
     loginchk(){
@@ -64,6 +67,7 @@ class Main extends React.Component{
                         n:name,
                     }});
     }
+    
     async loadlnd(){
         console.log("next");
         await axios.post(`http://127.0.0.1/landview/load.php`,{ind:this.state.count})
@@ -88,7 +92,7 @@ class Main extends React.Component{
     }
     render(){
         return(
-        <div className={cx(styles['main'],bs['container-fluid'],styles.parallax)}>
+        <div ref={this.myRef} className={cx(styles['main'],bs['container-fluid'],styles.parallax)}>
             <div className={styles.header}> 
                 {admin?"S.M promoters   (ADMIN MODE)":"S.M promoters"}
             </div>
