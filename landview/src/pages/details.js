@@ -9,6 +9,7 @@ var admin=false;
 var pass="";
 var land;
 var images=[];
+let items = [];  
 class Details extends React.Component{
     constructor(props){
         super(props);
@@ -92,7 +93,13 @@ class Details extends React.Component{
                 thumbnailHeight: 174,
                 title:i.toString,
                 caption: i.toString
-              });
+              });       
+              for (let i = 0; i <= this.props.maxValue; i++) {             
+                   items.push(<option key={i} value={i}>{i}</option>);   
+                   //here I will be creating my options dynamically based on
+                   //what props are currently passed to the parent component
+              }
+              return items;
             }
             console.log("updated");
             this.setState({gotimg:true});
