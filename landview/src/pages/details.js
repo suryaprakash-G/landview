@@ -16,7 +16,7 @@ class Details extends React.Component{
         this.state={
         admin:false,
         pass:'',
-        count:1,
+        images:0,
         name:"null",
         address:"",
         price:"",
@@ -47,7 +47,7 @@ class Details extends React.Component{
       console.warn("file: ",files);
       axios.post(`http://127.0.0.1/landview/upload.php`, files, {
           headers: {
-            'Content-Type': file.type
+            'Content-Type': files.type
           }
       }, {params:{
         "land":this.state.name,
@@ -76,6 +76,7 @@ class Details extends React.Component{
                 area:land["ar"],
                 address:land["ad"],
                 price:land["p"],
+                images:parseInt(land["i"]),
                 area:land["ar"],
                 city:land["c"],
                 type:land["t"],
@@ -85,7 +86,8 @@ class Details extends React.Component{
               this.setState({noimg:true});
             }
             else{
-            for(var i=1;i<=2;i++){
+            for(var i=1;i<=this.state.images;i++){
+
               images.push({
                 src: "http://127.0.0.1/landview/images/"+this.props.location.state.n+"/"+i+".jpg",
                 thumbnail: "http://127.0.0.1/landview/images/"+this.props.location.state.n+"/"+i+".jpg",
@@ -93,15 +95,10 @@ class Details extends React.Component{
                 thumbnailHeight: 174,
                 title:i.toString,
                 caption: i.toString
-              });       
-              for (let i = 0; i <= this.props.maxValue; i++) {             
-                   items.push(<option key={i} value={i}>{i}</option>);   
-                   //here I will be creating my options dynamically based on
-                   //what props are currently passed to the parent component
-              }
-              return items;
+              }); 
             }
             console.log("updated");
+            console.log(images);
             this.setState({gotimg:true});
           }
           }
@@ -136,10 +133,20 @@ class Details extends React.Component{
             images={images}
             enableImageSelection={false}/>
                 </div>:null
+        }<select>
+        {
+          ()=>{
+            for(var i=1;i<=this.state.images;i++){
+              console.log("lol ");
+            return  <option key={i} value={i}>{i}</option>;
+          }
+          }
         }
+        </select>
         {
           admin?
           <input type="file" multiple onChange={this.onChange} />:null}
+          
         <div className={styles.title}>name</div>
           <div className={styles.content}>{this.state.name}</div>
         <div className={styles.title}>area</div>

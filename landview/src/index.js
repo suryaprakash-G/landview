@@ -4,7 +4,7 @@ import './style/index.css';
 import history from './pages/history.js';
 import AdminLogin from './pages/adminlogin.js';
 import Newlnd from './pages/newlnd.js';
-import {BrowserRouter as Router, Route,Switch} from "react-router-dom";
+import {HashRouter as Router, Route,Switch} from "react-router-dom";
 import Main from './pages/main';
 import Details from './pages/details';
 ReactDOM.render(
