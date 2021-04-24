@@ -9,7 +9,6 @@ var admin=false;
 var pass="";
 var land;
 var images=[];
-let items = [];  
 class Details extends React.Component{
     constructor(props){
         super(props);
@@ -34,6 +33,7 @@ class Details extends React.Component{
         this.loginchk();
         axiosRetry(axios, { retries: 3 });
     }
+    
     componentDidMount(){
         try{
             this.setState({name:this.props.location.state.n});
@@ -95,8 +95,9 @@ class Details extends React.Component{
                 thumbnailHeight: 174,
                 title:i.toString,
                 caption: i.toString
-              }); 
+              });
             }
+            
             console.log("updated");
             console.log(images);
             this.setState({gotimg:true});
@@ -133,16 +134,14 @@ class Details extends React.Component{
             images={images}
             enableImageSelection={false}/>
                 </div>:null
-        }<select>
+        }
+        <select>
         {
-          ()=>{
-            for(var i=1;i<=this.state.images;i++){
-              console.log("lol ");
-            return  <option key={i} value={i}>{i}</option>;
-          }
-          }
+          images.map((i, index) => {
+            return <option key={i} value={i}>{i}</option>;})
         }
         </select>
+       
         {
           admin?
           <input type="file" multiple onChange={this.onChange} />:null}
