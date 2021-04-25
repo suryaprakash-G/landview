@@ -43,8 +43,8 @@ class Details extends React.Component{
         this.dtload();
     }
     upload(e){
-      let files=e.target.files;
-      console.warn("file: ",files);
+      this.setState({file:e.target.files[0]})
+      /*
       axios.post(`http://127.0.0.1/landview/upload.php`, files, {
           headers: {
             'Content-Type': files.type
@@ -57,7 +57,7 @@ class Details extends React.Component{
       }).catch(error => {
           console.log(error);
         });
-      
+      */
     }
     onChange(e) {
       var files = e.target.files;
@@ -135,16 +135,17 @@ class Details extends React.Component{
             enableImageSelection={false}/>
                 </div>:null
         }
-        <select>
-        {
-          images.map((i, index) => {
-            return <option key={i} value={i}>{i}</option>;})
-        }
-        </select>
-       
         {
           admin?
-          <input type="file" multiple onChange={this.onChange} />:null}
+          <div>
+          <select>
+          {
+            images.map((i, index) => {
+              return <option value={index+1}>{index+1}</option>;})}
+              <option value={images.length+1}>new</option>
+          </select>
+          <input type="file" onChange={this.upload} />
+          </div>:null }
           
         <div className={styles.title}>name</div>
           <div className={styles.content}>{this.state.name}</div>
